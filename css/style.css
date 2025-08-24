@@ -982,48 +982,37 @@ footer span {
   .cta2 {
     width: fit-content;
   }
-  .tooltip {
+  
+.logo-container {
   position: relative;
   display: inline-block;
+  width: 50px;   /* adjust based on your logo size */
+  height: 50px;
 }
 
-/* Tooltip box */
-.tooltip .tooltip-box {
-  visibility: hidden;
-  width: 100px;
-  background-color: #222;   /* dark box */
-  color: #fff;              /* white text */
-  text-align: center;
-  border-radius: 6px;
-  padding: 6px 8px;
-  font-size: 12px;
+.logo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
-  /* Position */
+.overlay-text {
   position: absolute;
-  z-index: 1;
-  bottom: 125%;   /* shows above the icon */
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-
-  /* Hide initially */
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.8);  /* dark box */
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s;
 }
 
-/* Small triangle (arrow) */
-.tooltip .tooltip-box::after {
-  content: "";
-  position: absolute;
-  top: 100%;  /* bottom of tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #222 transparent transparent transparent;
-}
-
-/* Show on hover */
-.tooltip:hover .tooltip-box {
+/* Show the message on hover */
+.logo-container:hover .overlay-text {
   visibility: visible;
   opacity: 1;
 }
