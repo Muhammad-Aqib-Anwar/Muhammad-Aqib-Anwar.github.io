@@ -298,9 +298,44 @@
 							<img src="img/github.svg" alt="github repo link icon">
 						</a>
 						
-						<a href="https://stop-n-shop.netlify.app/" target="_blank">
-  						<img src="img/link.svg" alt="live site demo link icon">
-						</a>
+					<a href="https://stop-n-shop.netlify.app/" target="_blank" 
+				   style="position: relative; display: inline-block;">
+				  
+				  <img src="img/link.svg" alt="live site demo link icon" 
+				       style="width:40px; height:auto; display:block;">
+				
+				  <span style="
+				        visibility: hidden;
+				        opacity: 0;
+				        transition: opacity 0.3s;
+				        position: absolute;
+				        bottom: 120%;
+				        left: 50%;
+				        transform: translateX(-50%);
+				        background: rgba(0,0,0,0.8);
+				        color: #fff;
+				        padding: 4px 8px;
+				        border-radius: 5px;
+				        font-size: 12px;
+				        white-space: nowrap;
+				      ">
+				    On-going
+				  </span>
+				</a>
+				
+				<script>
+				  // Make tooltip appear on hover (inline workaround)
+				  const link = document.querySelector('a[target="_blank"]');
+				  const tooltip = link.querySelector('span');
+				  link.addEventListener('mouseenter', () => {
+				    tooltip.style.visibility = 'visible';
+				    tooltip.style.opacity = '1';
+				  });
+				  link.addEventListener('mouseleave', () => {
+				    tooltip.style.visibility = 'hidden';
+				    tooltip.style.opacity = '0';
+				  });
+				</script>
   							
 						
 					</div>
