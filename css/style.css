@@ -333,10 +333,13 @@ main {
 }
 
 /* ERG trace — draws itself once on load, then rests */
+/* The trace stretches to fill its width (preserveAspectRatio="none"), so its
+   height has to stay near the same scale as the width or the spikes shear into
+   steep needles. These values keep it close to 1:1 at each breakpoint. */
 .hero-trace {
   display: block;
   width: 100%;
-  height: 8rem;
+  height: 4.5rem;
   margin-top: 4rem;
   overflow: visible;
 }
@@ -381,6 +384,10 @@ main {
 
 .cta-box {
   margin-top: 4rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
 }
 
 .cta,
@@ -388,12 +395,15 @@ main {
   font-family: "Satoshi 700";
 }
 
+/* Both buttons size to their own label and, as flex siblings, share one
+   height — so they stay aligned no matter how narrow the screen gets.
+   Uppercase lives here rather than on .cta1 so both labels match. */
 .cta {
-  display: inline-block;
-  width: 12rem;
-  margin: 0.5rem 1.8rem;
-  margin-left: 0;
-  padding: 1rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 1.2rem 2.2rem;
   border-radius: 1rem;
   background: linear-gradient(
     99.41deg,
@@ -401,19 +411,27 @@ main {
     rgba(24, 185, 207, 0.9) 116.85%
   );
 
+  font-size: 1.45rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   text-align: center;
   text-decoration: none;
+  white-space: nowrap;
   color: rgb(204, 213, 243);
 }
 
 .cta1 {
-  text-transform: uppercase;
   font-weight: 500;
 }
 
 .cta:hover {
   transform: scale(1.05);
   transition: transform 0.4s ease-in-out;
+}
+
+.cta:focus-visible {
+  outline: 0.2rem solid var(--cyan-bright);
+  outline-offset: 0.4rem;
 }
 
 .cta2,
@@ -638,7 +656,6 @@ main {
   flex-direction: column-reverse;
 
   max-width: 35rem;
-  max-height: 58rem;
   background: rgb(38, 50, 67);
   box-shadow: 0 1rem 2rem 0 rgba(27, 27, 27, 0.1);
 
@@ -1024,6 +1041,14 @@ h3 {
   transform: translateX(0.3rem);
 }
 
+@media screen and (max-width: 600px) {
+  /* narrow viewport squeezes the trace horizontally, so shorten it to match */
+  .hero-trace {
+    height: 2.8rem;
+    margin-top: 3rem;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .pub-year-btn {
     width: 8.5rem;
@@ -1166,10 +1191,7 @@ footer span {
     font-size: 3.5rem;
   }
 
-  .cta,
-  .cta1,
-  .cta2 {
-    width: fit-content;
+  .cta {
     padding: 1.3rem 2.5rem;
   }
 
@@ -1483,8 +1505,4 @@ footer span {
     height: 100%;
   }
 
-  .cta2 {
-    width: fit-content;
-  }
-  
 }
