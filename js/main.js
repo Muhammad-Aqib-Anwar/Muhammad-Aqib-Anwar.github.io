@@ -10,6 +10,42 @@ function showMenu(){
     menuList.classList.toggle('is-active');
 }
 
+/* NAV — highlight the section currently in view */
+const navLinks = Array.from(document.querySelectorAll('.nav-link a[href^="#"]'));
+
+if (navLinks.length && 'IntersectionObserver' in window){
+    setupScrollSpy();
+}
+
+function setupScrollSpy(){
+    /* #experience has no nav entry of its own, so it keeps About lit */
+    const linkForSection = { experience: 'about' };
+
+    const sections = ['about', 'experience', 'projects', 'publications', 'contact']
+        .map(id => document.getElementById(id))
+        .filter(Boolean);
+
+    /* a thin band across the middle of the viewport decides what counts as "current" */
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+
+            const id = entry.target.id;
+            setCurrentLink(linkForSection[id] || id);
+        });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+}
+
+function setCurrentLink(id){
+    navLinks.forEach(link => {
+        const isCurrent = link.getAttribute('href') === '#' + id;
+
+        link.parentElement.classList.toggle('is-current', isCurrent);
+    });
+}
+
 /* PUBLICATIONS — year rail
    The rail is built from the data-year on each .pub-card, so adding a
    publication to index.html is enough; the years and counts follow.
