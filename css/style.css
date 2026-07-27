@@ -575,47 +575,177 @@ h3 {
   padding-bottom: 10rem;
 }
 
-.publications-timeline {
+/* Year rail — an ERG-style signal trace; each year sits on a b-wave peak */
+.pub-rail {
   width: 100%;
-  padding-top: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  margin: 2.5rem 0 1rem;
+
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.pub-item {
-  display: grid;
-  grid-template-columns: 5rem 1fr;
+.pub-rail::-webkit-scrollbar {
+  display: none;
 }
 
-.pub-year {
+.pub-year-btn {
+  flex: 0 0 auto;
+  width: 11rem;
+  padding: 0;
+  appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pub-year-num {
   font-family: "GeneralSans 700";
-  font-size: 1.8rem;
-  line-height: 1;
-  color: #7e92d9;
-  padding-top: 0.1rem;
+  font-size: 1.9rem;
+  line-height: 1.2;
+  color: rgba(126, 146, 217, 0.75);
+
+  transition: color 0.35s ease-in-out, transform 0.35s ease-in-out;
 }
 
-.pub-body {
+.pub-wave {
+  display: block;
+  width: 100%;
+  height: 4.4rem;
+}
+
+.pub-wave-path {
+  fill: none;
+  stroke: rgba(126, 146, 217, 0.3);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+
+  transition: stroke 0.35s ease-in-out;
+}
+
+.pub-wave-node {
+  fill: rgb(34, 40, 49);
+  stroke: rgba(126, 146, 217, 0.55);
+  stroke-width: 1.6;
+
+  transition: fill 0.35s ease-in-out, stroke 0.35s ease-in-out;
+}
+
+.pub-year-count {
+  font-family: "Satoshi 500";
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  color: rgba(126, 146, 217, 0.65);
+
+  transition: color 0.35s ease-in-out;
+}
+
+/* hover — preview the active treatment */
+.pub-year-btn:hover .pub-year-num,
+.pub-year-btn:hover .pub-year-count {
+  color: rgb(204, 213, 243);
+}
+
+.pub-year-btn:hover .pub-wave-path {
+  stroke: rgba(126, 146, 217, 0.6);
+}
+
+.pub-year-btn:hover .pub-wave-node {
+  stroke: rgba(24, 185, 207, 0.8);
+}
+
+.pub-year-btn:focus-visible {
+  outline: 0.2rem solid rgba(24, 185, 207, 0.9);
+  outline-offset: 0.4rem;
+  border-radius: 0.6rem;
+}
+
+/* active year — the signal fires */
+.pub-year-btn.is-active .pub-year-num {
+  color: rgb(29, 228, 255);
+  transform: translateY(-0.2rem);
+}
+
+.pub-year-btn.is-active .pub-year-count {
+  color: rgb(204, 213, 243);
+}
+
+.pub-year-btn.is-active .pub-wave-path {
+  stroke: rgba(24, 185, 207, 0.95);
+  filter: drop-shadow(0 0 0.5rem rgba(24, 185, 207, 0.55));
+}
+
+.pub-year-btn.is-active .pub-wave-node {
+  fill: rgb(29, 228, 255);
+  stroke: rgb(29, 228, 255);
+  filter: drop-shadow(0 0 0.7rem rgba(29, 228, 255, 0.9));
+}
+
+/* PUBLICATION CARDS */
+.pub-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.pub-panel.pub-filtered .pub-card {
+  display: none;
+}
+
+.pub-panel.pub-filtered .pub-card.is-shown {
+  display: block;
+  animation: pubCardIn 0.5s ease-out both;
+}
+
+@keyframes pubCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(1.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pub-card {
   position: relative;
-  padding: 0 0 3.5rem 2.5rem;
-  border-left: 0.2rem solid rgba(126, 146, 217, 0.25);
+  padding: 2.5rem;
+  background: rgb(38, 50, 67);
+  border-radius: 1.2rem;
+  box-shadow: 0 1rem 2rem 0 rgba(27, 27, 27, 0.1);
+
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.pub-item:last-child .pub-body {
-  padding-bottom: 0;
-  border-left-color: transparent;
-}
-
-.pub-body::before {
+.pub-card::before {
   content: "";
   position: absolute;
-  left: -0.6rem;
-  top: 0.1rem;
-  width: 1.3rem;
-  height: 1.3rem;
-  border-radius: 50%;
-  background: rgb(34, 40, 49);
-  border: 0.2rem solid rgba(24, 185, 207, 0.9);
+  left: 0;
+  top: 2.5rem;
+  bottom: 2.5rem;
+  width: 0.3rem;
+  border-radius: 0 0.3rem 0.3rem 0;
+  background: linear-gradient(
+    180deg,
+    rgba(24, 185, 207, 0.9) 0%,
+    #3b53a8 100%
+  );
+}
 
-  box-shadow: 0 0 1.2rem rgba(24, 185, 207, 0.35);
+.pub-card:hover {
+  transform: translateY(-0.4rem);
+  box-shadow: 0 1.5rem 3rem 0 rgba(27, 27, 27, 0.25);
+}
+
+.pub-card > *:last-child {
+  margin-bottom: 0;
 }
 
 .pub-head {
@@ -693,6 +823,39 @@ h3 {
 .pub-link:hover {
   text-decoration: underline;
   transform: translateX(0.3rem);
+}
+
+@media screen and (max-width: 480px) {
+  .pub-year-btn {
+    width: 8.5rem;
+  }
+
+  .pub-year-num {
+    font-size: 1.7rem;
+  }
+
+  .pub-card {
+    padding: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pub-panel.pub-filtered .pub-card.is-shown {
+    animation: none;
+  }
+
+  .pub-card,
+  .pub-link,
+  .pub-year-num,
+  .pub-wave-path,
+  .pub-wave-node,
+  .pub-year-count {
+    transition: none;
+  }
+
+  .pub-card:hover {
+    transform: none;
+  }
 }
 
 /* CONTACT SECTION STYLING */
