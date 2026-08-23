@@ -6,8 +6,24 @@
    --mono is the utility face for data: years, venues, tool names, periods.
    It gives the page the register of an instrument readout rather than a résumé. */
 :root {
+  /* Three type roles and nothing else: General Sans carries the display voice,
+     Satoshi carries running text, mono carries data. */
+  --display: "General Sans", "Satoshi", system-ui, sans-serif;
+  --sans: "Satoshi", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
     Menlo, Consolas, monospace;
+
+  /* One fluid declaration per role, replacing the per-breakpoint overrides that
+     used to grow the headline to 55px at 1024 and then shrink it to 40px at
+     1440. Root is 62.5%, so 1rem = 10px. */
+  --type-hero: clamp(3.2rem, 2.4rem + 2.2vw, 5.6rem);
+  --type-lede: clamp(2.2rem, 1.8rem + 1.1vw, 3.4rem);
+  --type-h2: clamp(2.4rem, 2.1rem + 0.8vw, 3.2rem);
+  --type-h3: clamp(1.9rem, 1.76rem + 0.35vw, 2.2rem);
+  --type-body: clamp(1.5rem, 1.44rem + 0.18vw, 1.6rem);
+  --type-meta: clamp(1.4rem, 1.36rem + 0.12vw, 1.5rem);
+  --type-label: clamp(1.2rem, 1.16rem + 0.1vw, 1.3rem);
+  --type-micro: clamp(1.15rem, 1.12rem + 0.08vw, 1.25rem);
 
   --bg: rgb(34, 40, 49);
   --panel: rgb(38, 50, 67);
@@ -15,7 +31,7 @@
   --ink-dim: rgb(178, 185, 207);
   --cyan: rgba(24, 185, 207, 0.9);
   --cyan-bright: rgb(29, 228, 255);
-  --periwinkle: #7e92d9;
+  --periwinkle: #8fa1e0;
   --hairline: rgba(126, 146, 217, 0.18);
 }
 
@@ -53,52 +69,52 @@ body {
 body {
   background-color: rgb(34, 40, 49);
 
-  font-family: "Satoshi 400";
-  font-size: 1.5rem;
-  font-weight: 300;
+  font-family: var(--sans);
+  font-size: var(--type-body);
+  font-weight: 400;
   line-height: 1.5;
   color: rgb(204, 213, 243);
 }
 
 header,
-main,
-main ~ section,
+.hero-band,
+main > section,
 footer {
   padding: 2rem;
 }
 
-h1,
-.declaration {
+/* The display face appears exactly once on the page: here. Keeping it to the
+   name is what makes it read as a choice rather than a default. */
+h1 {
   margin: 0;
 
-  font-family: "GeneralSans 700";
-  font-size: 3.5rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: var(--type-hero);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 h2 {
   margin: 0;
-  font-size: 2.8rem;
-  font-family: "Satoshi 700";
+  font-size: var(--type-h2);
+  font-family: var(--sans);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 h3 {
-  font-family: "Satoshi 900";
-  font-size: 2rem;
-}
-
-.separator {
-  margin-bottom: 1rem;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: var(--type-h3);
+  line-height: 1.3;
+  text-wrap: balance;
 }
 
 .featured-projects-box h3 {
-  background: -webkit-linear-gradient(
-    90.98deg,
-    rgba(24, 185, 207, 0.9) -2.14%,
-    #6688ff 103.54%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--ink);
 }
 
 img {
@@ -111,17 +127,46 @@ a {
 
 a > img {
   width: 3rem;
+
+  transition: transform 0.4s ease-in-out;
 }
 
 a > img:hover {
   transform: scale(1.05);
-  transition: all 0.4s ease-in-out;
+}
+
+/* Every interactive element needs a visible focus state, not just the buttons. */
+a:focus-visible,
+button:focus-visible {
+  outline: 0.2rem solid var(--cyan-bright);
+  outline-offset: 0.3rem;
+  border-radius: 0.3rem;
+}
+
+/* Lets a keyboard user reach the content without tabbing the whole nav. */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -6rem;
+  z-index: 5;
+
+  padding: 1rem 1.8rem;
+  border-radius: 0.6rem;
+  background: var(--panel);
+
+  font-family: var(--sans);
+  font-weight: 700;
+  color: var(--cyan-bright);
+
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 1rem;
 }
 
 /******************************************
 /* LAYOUT
-font-family: 'Fira Mono', monospace;
-font-family: 'Fira Sans', sans-serif;
 /*******************************************/
 /* HEADER AND NAV STYLING */
 header {
@@ -142,10 +187,10 @@ nav img {
 
 .nav-menu {
   position: fixed;
-  display: contents;
   top: -2rem;
   right: -200vh;
   height: 100vh;
+  height: 100dvh;
   width: 75vw;
 
   list-style: none;
@@ -179,7 +224,6 @@ nav img {
   padding: 0;
   appearance: none;
   border: none;
-  outline: none;
   background: none;
   cursor: pointer;
   z-index: 2;
@@ -274,7 +318,6 @@ nav img {
 .nav-cta:hover {
   transform: scale(1.08);
   background: transparent;
-  transition: transform 0.4s ease-in-out;
 }
 
 .nav-cta a {
@@ -297,18 +340,28 @@ nav img {
 .social-links img {
   width: 3.5rem;
   height: 3.5rem;
+
+  transition: transform 0.4s ease-in-out;
 }
 
 .social-links img:hover {
   transform: scale(1.03);
-  transition: transform 0.4s ease-in-out;
 }
 
 /************************
 /* MAIN SECTION STYLING 
 ************************/
+/* main is a full-width wrapper now; its children carry the page's measure. */
 main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The hero sits in its own band so it can centre independently of the sections. */
+.hero-band {
   min-height: 85vh;
+  min-height: 85dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -319,7 +372,7 @@ main {
   margin: 0 0 1.6rem;
 
   font-family: var(--mono);
-  font-size: 1.25rem;
+  font-size: var(--type-label);
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -364,9 +417,11 @@ main {
 }
 
 .name-highlight {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
   background: -webkit-linear-gradient(
     top right,
-    rgba(18, 55, 246, 1),
+    #6688ff,
     rgba(9, 244, 244, 1)
   );
   -webkit-background-clip: text;
@@ -374,12 +429,18 @@ main {
   background-clip: text;
 }
 
+/* The tagline drops to the text face a weight down, which separates it from
+   the name without needing a third typeface. */
 .declaration {
-  margin: 0;
+  margin: 1.8rem 0 0;
 
-  font-size: 2.5rem;
-  line-height: 1.4;
-  color: rgb(178, 185, 207);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: var(--type-lede);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: var(--ink-dim);
 }
 
 .cta-box {
@@ -392,7 +453,8 @@ main {
 
 .cta,
 .cta1 {
-  font-family: "Satoshi 700";
+  font-family: var(--sans);
+  font-weight: 700;
 }
 
 /* Both buttons size to their own label and, as flex siblings, share one
@@ -411,22 +473,19 @@ main {
     rgba(24, 185, 207, 0.9) 116.85%
   );
 
-  font-size: 1.45rem;
+  font-size: var(--type-meta);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
   color: rgb(204, 213, 243);
-}
 
-.cta1 {
-  font-weight: 500;
+  transition: transform 0.4s ease-in-out;
 }
 
 .cta:hover {
   transform: scale(1.05);
-  transition: transform 0.4s ease-in-out;
 }
 
 .cta:focus-visible {
@@ -434,30 +493,15 @@ main {
   outline-offset: 0.4rem;
 }
 
+/* A solid hairline replaces the gradient border and the negative-z-index
+   pseudo-element that used to fake it. */
 .cta2,
 .nav-cta {
-  position: relative;
+  border: 0.1rem solid var(--cyan);
   border-radius: 1rem;
-  border-image-slice: 1;
-  border-image-source: linear-gradient(
-    180deg,
-    rgba(24, 185, 207, 0.9) 0%,
-    #3b53a8 100%
-  );
-  background: rgb(34, 40, 49);
-}
+  background: var(--bg);
 
-.cta2::after,
-.nav-cta::after {
-  position: absolute;
-  content: "";
-  top: -1.8px;
-  bottom: -1.8px;
-  left: -1.8px;
-  right: -1.8px;
-  background: linear-gradient(180deg, rgba(24, 185, 207, 0.9) 0%, #3b53a8 100%);
-  z-index: -1;
-  border-radius: 1.5rem;
+  transition: transform 0.4s ease-in-out, background 0.4s ease-in-out;
 }
 
 .main-social-links {
@@ -477,17 +521,21 @@ main {
 .separator {
   position: relative;
   align-self: flex-start;
+  margin-bottom: 3.2rem;
 }
 
+/* One beat of the same trace that runs across the hero and the year rail. */
 .separator::after {
   content: "";
   position: absolute;
-  bottom: -1rem;
+  top: 100%;
   left: 0;
-  width: 5rem;
-  height: 0.5rem;
-  border-radius: 3.5rem;
-  background-color: rgb(126, 146, 217);
+  margin-top: 0.2rem;
+  width: 7rem;
+  height: 1.8rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 24'%3E%3Cpath d='M0 16 H22 C26 16 27 21 31 21 C35 21 36 4 41 4 C46 4 47 19 51 17 C54 16 56 16 60 16 H96' fill='none' stroke='%2318b9cf' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat left center;
+  background-size: 7rem 1.8rem;
+  opacity: 0.85;
 }
 
 .about-text {
@@ -496,7 +544,8 @@ main {
 }
 
 .about-text span {
-  font-family: "Satoshi 700";
+  font-family: var(--sans);
+  font-weight: 700;
   color: rgb(29, 228, 255);
 }
 
@@ -505,7 +554,7 @@ main {
   margin: 2.8rem 0 1.2rem;
 
   font-family: var(--mono);
-  font-size: 1.2rem;
+  font-size: var(--type-label);
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -529,7 +578,7 @@ main {
   background: rgba(38, 50, 67, 0.55);
 
   font-family: var(--mono);
-  font-size: 1.3rem;
+  font-size: var(--type-label);
   color: var(--ink);
 
   transition: border-color 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -540,29 +589,17 @@ main {
   color: var(--cyan-bright);
 }
 
+/* The gradient frame is gone, and with it the absolutely-positioned scrim that
+   painted 35% of the background colour over the portrait. */
 .img-box {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 3.5rem;
-  padding: 0.3rem;
+  padding: 0.4rem;
+  border: 0.1rem solid var(--hairline);
   border-radius: 1.8rem;
-  background: linear-gradient(
-    99.41deg,
-    #002cc7 -39.51%,
-    rgba(24, 185, 207, 0.9) 116.85%
-  );
-}
-
-.img-box::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(34, 40, 49, 0.35);
+  background: var(--panel);
 }
 
 .profile-img {
@@ -574,7 +611,8 @@ main {
 
 /* EXPERIENCE SECTION STYLING
    Hairline rows with a mono period column — a record, not a card grid. */
-#experience {
+#experience,
+#education {
   display: flex;
   flex-direction: column;
 
@@ -591,7 +629,7 @@ main {
 
 .record {
   display: grid;
-  grid-template-columns: 12rem 1fr;
+  grid-template-columns: 14rem 1fr;
   gap: 0 2.5rem;
   padding: 2.2rem 0;
   border-top: 0.1rem solid var(--hairline);
@@ -603,10 +641,11 @@ main {
 
 .record-period {
   margin: 0;
+  white-space: nowrap;
   padding-top: 0.4rem;
 
   font-family: var(--mono);
-  font-size: 1.3rem;
+  font-size: var(--type-label);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--cyan-bright);
@@ -615,15 +654,17 @@ main {
 .record-role {
   margin: 0 0 0.4rem;
 
-  font-family: "Satoshi 700";
-  font-size: 1.9rem;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: var(--type-h3);
   color: var(--ink);
 }
 
 .record-org {
   margin: 0 0 0.8rem;
 
-  font-family: "Satoshi 500";
+  font-family: var(--sans);
+  font-weight: 500;
   color: var(--periwinkle);
 }
 
@@ -651,12 +692,28 @@ main {
   padding-bottom: 10rem;
 }
 
+/* Projects live in their own list, so nth-child() counts projects and nothing
+   else. The old rules keyed off ".separator ~ .project:nth-child()", where the
+   separator was itself a sibling — which offset odd/even by one and forced a
+   hand-written exception for the third project. */
+.project-list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.5rem;
+}
+
 .project {
   display: flex;
   flex-direction: column-reverse;
 
   max-width: 35rem;
-  background: rgb(38, 50, 67);
+  background: var(--panel);
   box-shadow: 0 1rem 2rem 0 rgba(27, 27, 27, 0.1);
 
   border-radius: 1.2rem;
@@ -675,7 +732,7 @@ h3 {
 .project-main-info span {
   margin: 0;
   font-family: var(--mono);
-  font-size: 1.2rem;
+  font-size: var(--type-label);
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -683,7 +740,8 @@ h3 {
 }
 
 .project-main-info p > a {
-  font-family: "Satoshi 700";
+  font-family: var(--sans);
+  font-weight: 700;
   color: rgb(29, 228, 255);
 }
 
@@ -691,25 +749,14 @@ h3 {
   text-decoration: underline;
 }
 
-.project-links {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
 .project-tools p {
-  background: linear-gradient(
-    150deg,
-    rgba(29, 228, 255, 0.81) -6.94%,
-    rgba(59, 83, 168, 0.9) 97.22%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-
   padding-bottom: 0.3rem;
 
-  font-family: "Satoshi 700";
+  font-family: var(--mono);
+  font-size: var(--type-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--periwinkle);
 }
 
 .project-image-box {
@@ -722,11 +769,14 @@ h3 {
   height: 100%;
 }
 
-.project-img-link > img {
+.project-img-link > img,
+.project-image-box > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 1.2rem 1.2rem 0 0;
+
+  transition: transform 0.4s ease-in-out;
 }
 
 .project-img-link > img:hover {
@@ -761,20 +811,48 @@ h3 {
   width: 3.5rem;
 }
 
+/* An honest label where a link used to point nowhere. */
+/* the ON-GOING graphic, sized here rather than with an inline style */
+.side-project .project-badge {
+  width: 12rem;
+  height: 7rem;
+  margin-left: auto;
+}
+
+.side-project .project-status {
+  margin: 0 0 0 auto;
+  padding: 0.35rem 1.1rem;
+  border: 0.1rem solid var(--hairline);
+  border-radius: 10rem;
+
+  font-family: var(--mono);
+  font-size: var(--type-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--periwinkle);
+}
+
+/* A card with no badge row reserves the same space, so all three
+   headings start on one line. */
+.side-project > h3:first-child {
+  margin-top: 9.2rem;
+}
+
 .side-project h3,
 .side-project span {
   margin: 2.2rem 0 0;
-  color: #7e92d9;
+  color: var(--periwinkle);
 }
 
 .side-project span {
-  font-family: "Satoshi 500";
+  font-family: var(--sans);
+  font-weight: 500;
 }
 
 /* tool list on a side project reads as data */
 .side-project > span {
   font-family: var(--mono);
-  font-size: 1.25rem;
+  font-size: var(--type-label);
 }
 
 
@@ -820,10 +898,10 @@ h3 {
 .pub-year-num {
   font-family: var(--mono);
   font-weight: 600;
-  font-size: 1.8rem;
+  font-size: var(--type-h3);
   letter-spacing: 0.04em;
   line-height: 1.2;
-  color: rgba(126, 146, 217, 0.75);
+  color: var(--periwinkle);
 
   transition: color 0.35s ease-in-out, transform 0.35s ease-in-out;
 }
@@ -853,9 +931,9 @@ h3 {
 
 .pub-year-count {
   font-family: var(--mono);
-  font-size: 1.15rem;
+  font-size: var(--type-micro);
   letter-spacing: 0.04em;
-  color: rgba(126, 146, 217, 0.65);
+  color: var(--periwinkle);
 
   transition: color 0.35s ease-in-out;
 }
@@ -947,11 +1025,7 @@ h3 {
   bottom: 2.5rem;
   width: 0.3rem;
   border-radius: 0 0.3rem 0.3rem 0;
-  background: linear-gradient(
-    180deg,
-    rgba(24, 185, 207, 0.9) 0%,
-    #3b53a8 100%
-  );
+  background: var(--cyan);
 }
 
 .pub-card:hover {
@@ -979,31 +1053,57 @@ h3 {
 
   font-family: var(--mono);
   font-weight: 600;
-  font-size: 1.15rem;
+  font-size: var(--type-micro);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgb(29, 228, 255);
 }
 
 .pub-source {
-  font-family: "Satoshi 500";
-  font-size: 1.4rem;
-  color: #7e92d9;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: var(--type-meta);
+  color: var(--periwinkle);
 }
 
 .pub-title {
   margin: 0 0 0.8rem;
   text-transform: none;
   line-height: 1.35;
+  color: var(--ink);
+}
 
-  background: -webkit-linear-gradient(
-    90.98deg,
-    rgba(24, 185, 207, 0.9) -2.14%,
-    #6688ff 103.54%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Who wrote it, and in what order — the first thing a reader of an academic
+   page looks for, and the one thing the cards were missing. */
+.pub-authors {
+  margin: 0 0 1rem;
+
+  font-size: var(--type-meta);
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+
+.pub-authors strong {
+  font-family: var(--sans);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* The citation line: what you copy into a reference list. */
+.pub-cite {
+  margin: 0 0 1.2rem;
+
+  font-family: var(--mono);
+  font-size: var(--type-label);
+  line-height: 1.6;
+  color: var(--periwinkle);
+}
+
+/* one click selects the whole identifier */
+.pub-doi {
+  display: inline-block;
+  color: var(--ink-dim);
+  user-select: all;
 }
 
 .pub-desc {
@@ -1015,22 +1115,18 @@ h3 {
 .pub-tags {
   margin: 0 0 1.2rem;
 
-  font-family: "Satoshi 700";
-  font-size: 1.35rem;
-  background: linear-gradient(
-    150deg,
-    rgba(29, 228, 255, 0.81) -6.94%,
-    rgba(59, 83, 168, 0.9) 97.22%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: var(--mono);
+  font-size: var(--type-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--periwinkle);
 }
 
 .pub-link {
   display: inline-block;
 
-  font-family: "Satoshi 700";
+  font-family: var(--sans);
+  font-weight: 700;
   color: rgb(29, 228, 255);
 
   transition: transform 0.3s ease-in-out;
@@ -1052,10 +1148,6 @@ h3 {
 @media screen and (max-width: 480px) {
   .pub-year-btn {
     width: 8.5rem;
-  }
-
-  .pub-year-num {
-    font-size: 1.7rem;
   }
 
   .pub-card {
@@ -1091,6 +1183,24 @@ h3 {
   .pub-card:hover {
     transform: none;
   }
+
+  a > img,
+  .social-links img,
+  .cta,
+  .cta2,
+  .nav-cta,
+  .project-img-link > img,
+  .project-image-box > img {
+    transition: none;
+  }
+
+  a > img:hover,
+  .social-links img:hover,
+  .cta:hover,
+  .nav-cta:hover,
+  .project-img-link > img:hover {
+    transform: none;
+  }
 }
 
 /* CONTACT SECTION STYLING */
@@ -1109,19 +1219,21 @@ h3 {
 }
 
 #contact span {
-  font-family: "Satoshi 500";
-  font-size: 1.6rem;
-  color: rgba(126, 146, 217, 1);
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: var(--type-body);
+  color: var(--periwinkle);
 }
 
-h4 {
+.contact-heading {
   margin: 1rem;
 
-  font-family: "Satoshi 900";
-  font-size: 3rem;
+  font-family: var(--sans);
+  font-weight: 900;
+  font-size: var(--type-h2);
 }
 
-h4 + p {
+.contact-heading + p {
   padding: 1rem 0 2rem;
 }
 
@@ -1137,20 +1249,14 @@ footer {
   padding: 1.2rem;
   border-top: 0.1rem solid rgb(38, 50, 67);
 
-  font-size: 1.3rem;
+  font-size: var(--type-label);
   text-align: center;
   color: rgb(143, 148, 164);
 }
 
 footer span {
-  background: linear-gradient(
-    210deg,
-    rgba(29, 228, 255, 0.81) -6.94%,
-    rgba(59, 83, 168, 0.9) 97.22%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 700;
+  color: var(--ink);
 }
 
 /******************************************
@@ -1163,8 +1269,6 @@ footer span {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    font-size: 1.55rem;
   }
 
   header {
@@ -1176,19 +1280,19 @@ footer span {
   }
 
   main {
+    align-items: center;
+  }
+
+  main > .hero-band {
     min-height: 90vh;
+    min-height: 90dvh;
     width: 90vw;
 
     justify-content: space-between;
   }
 
-  main section {
+  .hero-band .hero {
     width: 47rem;
-  }
-
-  h1,
-  .declaration {
-    font-size: 3.5rem;
   }
 
   .cta {
@@ -1215,18 +1319,9 @@ footer span {
     width: 55vw;
   }
 
-  .featured-projects-box {
+  .project-list {
     flex-flow: row wrap;
     justify-content: space-evenly;
-  }
-
-  .other-projects-box .separator::after {
-    width: 0;
-  }
-
-  .other-projects-box h2 {
-    text-align: center;
-    text-decoration: underline;
   }
 
   .notable-projects-box {
@@ -1253,7 +1348,9 @@ footer span {
 }
 
 @media screen and (min-width: 1024px) {
-  body > * {
+  main > .hero-band,
+  main > section,
+  footer {
     width: 85vw;
   }
 
@@ -1266,132 +1363,87 @@ footer span {
     width: 7.5rem;
   }
 
-  main section {
+  .hero-band .hero {
     width: 52rem;
-  }
-
-  h1 {
-    font-size: 5.5rem;
-  }
-
-  h2 {
-    font-size: 3.2rem;
-  }
-
-  .declaration {
-    font-size: 3.2rem;
   }
 
   #about .separator + div {
     width: 48vw;
   }
 
-  .separator ~ .project {
-    position: relative;
-    min-width: 100%;
-    gap: 2.5rem;
-    margin-top: 4.5rem;
-    background: none;
+  .project-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 7rem;
   }
 
-  .separator ~ .project:nth-child(even) {
-    flex-direction: row;
-  }
-
-  .separator ~ .project:nth-child(odd) {
-    flex-direction: row-reverse;
-
-    text-align: right;
-  }
-
+  /* Twelve columns per project. Image and card each take seven of them and
+     share one grid row, so the card overlaps the image. Mirroring every other
+     project is then a single nth-child(even) rule, and adding a fifth project
+     needs no CSS at all. */
   .project {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
+
+    width: 100%;
+    max-width: none;
+    background: none;
     box-shadow: none;
+    border-radius: 0;
+  }
+
+  .project-image-box {
+    grid-row: 1;
+    grid-column: 6 / -1;
+
+    border-radius: 1.2rem;
+    overflow: hidden;
   }
 
   .project-details-box {
-    position: relative;
-    margin-top: 2.5rem;
+    grid-row: 1;
+    grid-column: 1 / 7;
     padding: 0;
-    max-width: 50%;
-  }
-
-  .project-main-info {
-    position: relative;
-    padding: 2rem;
-    border-radius: 0.8rem;
-    background: rgb(38, 50, 67);
-    box-shadow: 0 1rem 3rem 0 rgba(27, 27, 27, 0.2);
 
     z-index: 1;
   }
 
-  .project-main-info::before {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    bottom: 0;
+  .project:nth-child(even) .project-image-box {
+    grid-column: 1 / 8;
+  }
+
+  .project:nth-child(even) .project-details-box {
+    grid-column: 7 / -1;
+
+    text-align: right;
+  }
+
+  .project-main-info {
+    padding: 2.2rem;
     border-radius: 0.8rem;
-    transform: skew(-16deg);
-    background-color: rgb(38, 50, 67);
-    z-index: -2;
-  }
-
-  .separator ~ .project:nth-child(even) .project-main-info::before {
-    top: 0;
-    left: 3.7rem;
-  }
-
-  .separator ~ .project:nth-child(odd) .project-main-info::before {
-    top: 0;
-    right: 2.7rem;
-    bottom: 0;
-    border-radius: 0.8rem;
-    transform: skew(-10deg);
-    background-color: rgb(38, 50, 67);
-    z-index: -2;
-  }
-
-  .separator ~ .project:nth-child(odd) .project-links {
-    justify-content: flex-end;
-  }
-
-  .separator ~ .project:nth-child(even) .project-image-box {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    align-self: stretch;
-  }
-
-  .separator ~ .project:nth-child(odd) .project-image-box {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    align-self: stretch;
-  }
-
-  .separator ~ .project.project3 .project-main-info::before {
-    left: 3.7rem;
+    background: var(--panel);
+    box-shadow: 0 1rem 3rem 0 rgba(27, 27, 27, 0.35);
   }
 
   .project-tools p {
     display: inline-block;
   }
 
-  .project-image-box::before {
-    top: -3rem;
-    bottom: 0;
-    height: 120%;
+  /* The frame clips the zoom, so the image grows inside its own bounds. */
+  .project-img-link,
+  .project-img-link > img,
+  .project-image-box > img {
+    height: auto;
   }
 
-  .project-img-link > img {
-    border-radius: 1.2rem;
+  .project-img-link > img,
+  .project-image-box > img {
+    border-radius: 0;
   }
 
   .project-img-link > img:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 
   .notable-projects-box {
@@ -1416,7 +1468,9 @@ footer span {
 }
 
 @media screen and (min-width: 1280px) {
-  body > * {
+  main > .hero-band,
+  main > section,
+  footer {
     width: 70vw;
   }
 
@@ -1449,11 +1503,12 @@ footer span {
     display: none;
   }
 
-  main > section {
+  .hero-band > .hero {
     width: 60rem;
   }
 
-  main .cta2 {
+  /* the nav carries a Resume button at this width, so the hero drops its own */
+  .hero-resume {
     display: none;
   }
 
@@ -1471,11 +1526,8 @@ footer span {
 }
 
 @media screen and (min-width: 1440px) {
-  body {
-    font-size: 1.6rem;
-  }
-
-  body > * {
+  main > .hero-band,
+  main > section {
     width: 103rem;
   }
 
@@ -1484,25 +1536,8 @@ footer span {
     width: 100%;
   }
 
-  main > section {
+  .hero-band > .hero {
     width: 65rem;
-  }
-
-  h1,
-  .declaration {
-    font-size: 4rem;
-  }
-
-  .project {
-    height: 35rem;
-  }
-
-  .project-image-box {
-    min-height: 100%;
-  }
-
-  .project-image-box img {
-    height: 100%;
   }
 
 }

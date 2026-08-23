@@ -5,10 +5,31 @@ const menuList = document.querySelector('.nav-menu');
 menuBtn.addEventListener('click', showMenu);
 
 function showMenu(){
-    menuBtn.classList.toggle('is-active');
-    menuBar.classList.toggle('is-active');
-    menuList.classList.toggle('is-active');
+    setMenu(!menuList.classList.contains('is-active'));
 }
+
+function setMenu(isOpen){
+    menuBtn.classList.toggle('is-active', isOpen);
+    menuBar.classList.toggle('is-active', isOpen);
+    menuList.classList.toggle('is-active', isOpen);
+
+    /* the button is the only thing announcing the drawer's state */
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+    menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+}
+
+/* The drawer is fixed and full-height, so leaving it open after a jump would
+   hide the very section the visitor asked for. */
+menuList.addEventListener('click', event => {
+    if (event.target.closest('a')) setMenu(false);
+});
+
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menuList.classList.contains('is-active')){
+        setMenu(false);
+        menuBtn.focus();
+    }
+});
 
 /* NAV — highlight the section currently in view */
 const navLinks = Array.from(document.querySelectorAll('.nav-link a[href^="#"]'));
@@ -19,9 +40,9 @@ if (navLinks.length && 'IntersectionObserver' in window){
 
 function setupScrollSpy(){
     /* #experience has no nav entry of its own, so it keeps About lit */
-    const linkForSection = { experience: 'about' };
+    const linkForSection = { experience: 'about', education: 'about' };
 
-    const sections = ['about', 'experience', 'projects', 'publications', 'contact']
+    const sections = ['about', 'experience', 'education', 'projects', 'publications', 'contact']
         .map(id => document.getElementById(id))
         .filter(Boolean);
 
@@ -50,6 +71,8 @@ function setCurrentLink(id){
    The rail is built from the data-year on each .pub-card, so adding a
    publication to index.html is enough; the years and counts follow.
    Without JS every card stays visible, so the list degrades gracefully. */
+const ALL = 'all';
+
 const pubRail = document.querySelector('.pub-rail');
 const pubPanel = document.querySelector('.pub-panel');
 
@@ -65,13 +88,16 @@ function buildYearRail(){
     const years = Array.from(new Set(cards.map(card => card.dataset.year)))
         .sort((a, b) => Number(b) - Number(a));
 
+    /* "All" leads the rail and is the default, so no paper is hidden on arrival */
+    pubRail.appendChild(createYearButton(ALL, cards.length));
+
     years.forEach(year => {
         const count = cards.filter(card => card.dataset.year === year).length;
         pubRail.appendChild(createYearButton(year, count));
     });
 
     pubPanel.classList.add('pub-filtered');
-    showYear(years[0]);
+    showYear(ALL);
 }
 
 function createYearButton(year, count){
@@ -81,7 +107,7 @@ function createYearButton(year, count){
     btn.className = 'pub-year-btn';
     btn.dataset.year = year;
     btn.innerHTML =
-        '<span class="pub-year-num">' + year + '</span>' +
+        '<span class="pub-year-num">' + (year === ALL ? 'All' : year) + '</span>' +
         '<svg class="pub-wave" viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true">' +
             '<path class="pub-wave-path" vector-effect="non-scaling-stroke" d="' + wavePath + '"/>' +
             '<circle class="pub-wave-node" cx="60" cy="7" r="4.5" vector-effect="non-scaling-stroke"/>' +
@@ -104,7 +130,7 @@ function showYear(year){
     let shown = 0;
 
     pubPanel.querySelectorAll('.pub-card').forEach(card => {
-        const isShown = card.dataset.year === year;
+        const isShown = year === ALL || card.dataset.year === year;
 
         card.classList.toggle('is-shown', isShown);
 

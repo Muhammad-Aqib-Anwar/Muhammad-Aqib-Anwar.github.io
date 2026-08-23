@@ -4,27 +4,27 @@
  * Font Family: General Sans
  * Designed by: Frode Helland
  * URL: https://www.fontshare.com/fonts/general-sans
- * © 2022 Indian Type Foundryneral Sans Bold Italic
- *
+ * © 2022 Indian Type Foundry
 */
 
+
+/* Display face only — the hero headline and the declaration beneath it.
+   No variable cut ships with the download, so the two weights stay static,
+   but they now belong to one family instead of two. */
 @font-face {
-  font-family: 'GeneralSans 600';
+  font-family: 'General Sans';
   src: url('../../fonts/general-sans/GeneralSans-Semibold.woff2') format('woff2'),
-       url('../../fonts/general-sans/GeneralSans-Semibold.woff') format('woff'),
-       url('../../fonts/general-sans/GeneralSans-Semibold.ttf') format('truetype');
-       font-weight: 600;
-       font-display: swap;
-       font-style: normal;
+       url('../../fonts/general-sans/GeneralSans-Semibold.woff') format('woff');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
 }
 
-
 @font-face {
-  font-family: 'GeneralSans 700';
+  font-family: 'General Sans';
   src: url('../../fonts/general-sans/GeneralSans-Bold.woff2') format('woff2'),
-       url('../../fonts/general-sans/GeneralSans-Bold.woff') format('woff'),
-       url('../../fonts/general-sans/GeneralSans-Bold.ttf') format('truetype');
-       font-weight: 700;
-       font-display: swap;
-       font-style: normal;
+       url('../../fonts/general-sans/GeneralSans-Bold.woff') format('woff');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
 }

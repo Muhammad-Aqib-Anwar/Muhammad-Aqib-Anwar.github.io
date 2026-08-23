@@ -8,56 +8,15 @@
 */
 
 
+/* One variable face spanning the whole 300-900 axis, so `font-weight` behaves
+   the way CSS expects and <strong> actually renders bold. This replaces the
+   five static cuts the page used to register as five separate families
+   (123 KB of woff2) with a single 43 KB file. */
 @font-face {
-  font-family: 'Satoshi 300';
-  src: url('../../fonts/satoshi/Satoshi-Light.woff2') format('woff2'),
-       url('../../fonts/satoshi/Satoshi-Light.woff') format('woff'),
-       url('../../fonts/satoshi/Satoshi-Light.ttf') format('truetype');
-       font-weight: 300;
-       font-display: swap;
-       font-style: normal;
-}
-
-
-@font-face {
-  font-family: 'Satoshi 400';
-  src: url('../../fonts/satoshi/Satoshi-Regular.woff2') format('woff2'),
-       url('../../fonts/satoshi/Satoshi-Regular.woff') format('woff'),
-       url('../../fonts/satoshi/Satoshi-Regular.ttf') format('truetype');
-       font-weight: 400;
-       font-display: swap;
-       font-style: normal;
-}
-
-
-@font-face {
-  font-family: 'Satoshi 500';
-  src: url('../../fonts/satoshi/Satoshi-Medium.woff2') format('woff2'),
-       url('../../fonts/satoshi/Satoshi-Medium.woff') format('woff'),
-       url('../../fonts/satoshi/Satoshi-Medium.ttf') format('truetype');
-       font-weight: 500;
-       font-display: swap;
-       font-style: normal;
-}
-
-
-@font-face {
-  font-family: 'Satoshi 700';
-  src: url('../../fonts/satoshi/Satoshi-Bold.woff2') format('woff2'),
-       url('../../fonts/satoshi/Satoshi-Bold.woff') format('woff'),
-       url('../../fonts/satoshi/Satoshi-Bold.ttf') format('truetype');
-       font-weight: 700;
-       font-display: swap;
-       font-style: normal;
-}
-
-
-@font-face {
-  font-family: 'Satoshi 900';
-  src: url('../../fonts/satoshi/Satoshi-Black.woff2') format('woff2'),
-       url('../../fonts/satoshi/Satoshi-Black.woff') format('woff'),
-       url('../../fonts/satoshi/Satoshi-Black.ttf') format('truetype');
-       font-weight: 900;
-       font-display: swap;
-       font-style: normal;
+  font-family: 'Satoshi';
+  src: url('../../fonts/satoshi/Satoshi-Variable.woff2') format('woff2'),
+       url('../../fonts/satoshi/Satoshi-Variable.woff') format('woff');
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
 }

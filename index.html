@@ -22,14 +22,17 @@
 	<meta property="og:title" content="Muhammad Aqib Anwar — AI &amp; Computer Vision Researcher">
 	<meta property="og:description"
 		content="PhD researcher in AI and computer vision at Hamad Bin Khalifa University, Qatar. Published work on retinal biomarkers for autism and multiple sclerosis detection, deep learning and image forensics.">
-	<meta property="og:image" content="https://muhammad-aqib-anwar.github.io/img/og-img.png">
+	<meta property="og:image" content="https://muhammad-aqib-anwar.github.io/img/og-img.jpg">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
 	<meta property="og:image:alt" content="Muhammad Aqib Anwar — AI and computer vision researcher">
 
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="Muhammad Aqib Anwar — AI &amp; Computer Vision Researcher">
 	<meta name="twitter:description"
 		content="PhD researcher in AI and computer vision at Hamad Bin Khalifa University, Qatar.">
-	<meta name="twitter:image" content="https://muhammad-aqib-anwar.github.io/img/og-img.png">
+	<meta name="twitter:image" content="https://muhammad-aqib-anwar.github.io/img/og-img.jpg">
 
 	<!-- structured identity for search engines -->
 	<script type="application/ld+json">
@@ -56,6 +59,7 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+	<link rel="icon" href="img/favicon/favicon.ico" sizes="any">
 	<link rel="manifest" href="img/favicon/site.webmanifest">
 
 	<!-- external CSS link -->
@@ -64,13 +68,15 @@
 </head>
 
 <body>
+	<a class="skip-link" href="#main">Skip to content</a>
+
 	<header>
-		<nav>
+		<nav aria-label="Main">
 			<a href="/">
 				<img src="img/logo.png" alt="Muhammad Aqib Anwar — home" class="logo" width="512" height="512">
 			</a>
 
-			<ul class="nav-menu">
+			<ul class="nav-menu" id="nav-menu">
 				<li class="nav-link">
 					<a href="#about">About</a>
 				</li>
@@ -84,8 +90,7 @@
 					<a href="#contact">Contact</a>
 				</li>
 				<li class="nav-link nav-cta">
-					<a href="https://drive.google.com/file/d/1TTLaf-i8BOEGIVm0vKagOzr6a6AxYU7T/view?usp=sharing"
-						target="_blank">Resume</a>
+					<a href="Muhammad_Aqib_Anwar_PHD_SCHOLAR.pdf" target="_blank" rel="noopener">Resume</a>
 				</li>
 
 				<li class="nav-social-links social-links">
@@ -104,15 +109,15 @@
 				</li>
 			</ul>
 
-			<button class="hamburger" type="button" name="menu button">
-				<div class="menu-bar">
-
-				</div>
+			<button class="hamburger" type="button" aria-label="Open menu"
+				aria-expanded="false" aria-controls="nav-menu">
+				<div class="menu-bar"></div>
 			</button>
 		</nav>
 	</header>
 
-	<main>
+	<main id="main">
+		<div class="hero-band">
 		<section class="hero">
 			<p class="hero-eyebrow">PhD Researcher &middot; Hamad Bin Khalifa University &middot; Doha, Qatar</p>
 
@@ -129,8 +134,8 @@
 
 			<div class="cta-box">
 				<a href="#publications" class="cta cta1">View research</a>
-				<a href="https://drive.google.com/file/d/1TTLaf-i8BOEGIVm0vKagOzr6a6AxYU7T/view?usp=sharing"
-					target="_blank" class="cta cta2">Résumé</a>
+				<a href="Muhammad_Aqib_Anwar_PHD_SCHOLAR.pdf" target="_blank" rel="noopener"
+					class="cta cta2 hero-resume">Résumé</a>
 			</div>
 
 			<!-- ambient ERG trace: the motif that runs through the site -->
@@ -154,7 +159,7 @@
 			</a>
 
 		</aside>
-	</main>
+		</div>
 
 	<section id="about">
 		<div class="separator">
@@ -190,7 +195,11 @@
 		</div>
 
 		<div class="img-box">
-			<img src="img/profile-headshot.webp" class="profile-img" width="800" height="800" loading="lazy"
+			<img src="img/profile-headshot.webp" class="profile-img"
+				srcset="img/profile-headshot-400w.webp 400w,
+						img/profile-headshot.webp 800w"
+				sizes="300px"
+				width="800" height="800" loading="lazy"
 				alt="Muhammad Aqib Anwar">
 		</div>
 	</section>
@@ -202,7 +211,7 @@
 
 		<ol class="record-list">
 			<li class="record">
-				<p class="record-period">Present</p>
+				<p class="record-period">2024 &ndash; Present</p>
 				<div class="record-body">
 					<h3 class="record-role">PhD Researcher</h3>
 					<p class="record-org">Hamad Bin Khalifa University &middot; Doha, Qatar</p>
@@ -214,12 +223,69 @@
 			</li>
 
 			<li class="record">
-				<p class="record-period">3+ years</p>
+				<p class="record-period">2021 &ndash; 2024</p>
 				<div class="record-body">
 					<h3 class="record-role">Technical Architect &amp; Software Developer</h3>
-					<p class="record-org">Huawei</p>
+					<p class="record-org">Huawei Technologies &middot; Pakistan</p>
 					<p class="record-detail">
 						Automation tools, cloud-based solutions and end-to-end process design.
+					</p>
+				</div>
+			</li>
+		</ol>
+	</section>
+
+	<section id="education">
+		<div class="separator">
+			<h2>Education</h2>
+		</div>
+
+		<ol class="record-list">
+			<li class="record">
+				<p class="record-period">2024 &ndash; Present</p>
+				<div class="record-body">
+					<h3 class="record-role">PhD, Computer Science &amp; Engineering</h3>
+					<p class="record-org">Hamad Bin Khalifa University &middot; Doha, Qatar</p>
+					<p class="record-detail">
+						Artificial intelligence, machine learning and computer vision for medical image
+						analysis and retinal biomarkers. Cumulative GPA 3.95 / 4.00.
+					</p>
+				</div>
+			</li>
+
+			<li class="record">
+				<p class="record-period">2018 &ndash; 2021</p>
+				<div class="record-body">
+					<h3 class="record-role">MS, Computer Science</h3>
+					<p class="record-org">Air University &middot; Islamabad, Pakistan</p>
+					<p class="record-detail">
+						Graduated with distinction on a merit scholarship. Thesis on image forgery
+						detection, transforming local descriptors into deep-derived features, in
+						collaboration with the National Center of Cyber Security.
+					</p>
+				</div>
+			</li>
+
+			<li class="record">
+				<p class="record-period">2017 &ndash; 2018</p>
+				<div class="record-body">
+					<h3 class="record-role">Master 1, 3D Multimedia &amp; Technology</h3>
+					<p class="record-org">Universit&eacute; Jean Monnet &middot; Saint-&Eacute;tienne, France</p>
+					<p class="record-detail">
+						Foreign study scholarship. Thesis on recovering 3D models from 2D images using
+						camera calibration.
+					</p>
+				</div>
+			</li>
+
+			<li class="record">
+				<p class="record-period">2012 &ndash; 2016</p>
+				<div class="record-body">
+					<h3 class="record-role">BS, Computer Science</h3>
+					<p class="record-org">Institute of Southern Punjab &middot; Multan, Pakistan</p>
+					<p class="record-detail">
+						Graduated first in class. Thesis on fusing multiple visual cues for improved
+						object detection and human attribute and action recognition.
 					</p>
 				</div>
 			</li>
@@ -232,7 +298,8 @@
 				<h2>Projects</h2>
 			</div>
 
-			<div class="project project1">
+			<ul class="project-list">
+			<li class="project project1">
 				<div class="project-details-box">
 					<div class="project-main-info">
 						<span>Master&apos;s Thesis</span>
@@ -250,13 +317,18 @@
 
 				<div class="project-image-box">
 					<a href="https://github.com/Muhammad-Aqib-Anwar/image_forgery_detection" target="_blank" class="project-img-link">
-						<img src="img/attacks2.webp" width="1200" height="795" loading="lazy"
+						<img src="img/attacks2.webp"
+							srcset="img/attacks2-400w.webp 400w,
+									img/attacks2-800w.webp 800w,
+									img/attacks2.webp 1200w"
+							sizes="(min-width: 1024px) 50vw, 350px"
+							width="1200" height="795" loading="lazy"
 							alt="Examples of image forgery attacks from the thesis dataset">
 					</a>
 				</div>
-			</div>
+			</li>
 
-			<div class="project project2">
+			<li class="project project2">
 				<div class="project-details-box">
 					<div class="project-main-info">
 						<span>Applied AI</span>
@@ -273,14 +345,16 @@
 				</div>
 
 				<div class="project-image-box">
-					<a href="https://github.com/Muhammad-Aqib-Anwar/LLM--LoRA-Fine-Tuning---4-bit-GGUF---GPT4All-Ollama/" target="_blank" class="project-img-link">
-						<img src="img/hugging-face.webp" width="800" height="450" loading="lazy"
-							alt="Hugging Face model deployment for the fine-tuned LLM">
-					</a>
+					<img src="img/hugging-face.webp"
+						srcset="img/hugging-face-400w.webp 400w,
+								img/hugging-face.webp 800w"
+						sizes="(min-width: 1024px) 50vw, 350px"
+						width="800" height="450" loading="lazy"
+						alt="Hugging Face model deployment for the fine-tuned LLM">
 				</div>
-			</div>
+			</li>
 
-			<div class="project project3">
+			<li class="project project3">
 				<div class="project-details-box">
 					<div class="project-main-info">
 						<span>Computer Vision</span>
@@ -297,14 +371,17 @@
 				</div>
 
 				<div class="project-image-box">
-					<a href="https://github.com/Muhammad-Aqib-Anwar" target="_blank" class="project-img-link">
-						<img src="img/3d-reconstruction.webp" width="1200" height="701" loading="lazy"
-							alt="3D model reconstructed from calibrated 2D images">
-					</a>
+					<img src="img/3d-reconstruction.webp"
+						srcset="img/3d-reconstruction-400w.webp 400w,
+								img/3d-reconstruction-800w.webp 800w,
+								img/3d-reconstruction.webp 1200w"
+						sizes="(min-width: 1024px) 50vw, 350px"
+						width="1200" height="701" loading="lazy"
+						alt="3D model reconstructed from calibrated 2D images">
 				</div>
-			</div>
+			</li>
 
-			<div class="project project4">
+			<li class="project project4">
 				<div class="project-details-box">
 					<div class="project-main-info">
 						<span>Remote Sensing</span>
@@ -321,12 +398,15 @@
 				</div>
 
 				<div class="project-image-box">
-					<a href="https://github.com/Muhammad-Aqib-Anwar/Satellite-Image-Classification/" target="_blank" class="project-img-link">
-						<img src="img/satellite-image.webp" width="700" height="378" loading="lazy"
-							alt="Satellite imagery classified by land-use category">
-					</a>
+					<img src="img/satellite-image.webp"
+						srcset="img/satellite-image-400w.webp 400w,
+								img/satellite-image.webp 700w"
+						sizes="(min-width: 1024px) 50vw, 350px"
+						width="700" height="378" loading="lazy"
+						alt="Satellite imagery classified by land-use category">
 				</div>
-			</div>
+			</li>
+			</ul>
 		</div>
 
 		<div class="other-projects-box">
@@ -337,11 +417,12 @@
 			<div class="notable-projects-box">
 				<div class="side-project">
 					<div>
-						<a href="https://github.com/Muhammad-Aqib-Anwar" target="_blank">
-							<img src="img/github.svg" alt="GitHub repository">
+						<a href="https://github.com/Muhammad-Aqib-Anwar/OCT-MultipleSclerosis-Detection" target="_blank"
+							rel="noopener" aria-label="Neurodegenerative Diseases source on GitHub">
+							<img src="img/github.svg" alt="">
 						</a>
-						
-						<img src="img/logo.svg" alt="Project ongoing" style="width:120px; height:70px;">
+
+						<img src="img/logo.svg" class="project-badge" alt="Project ongoing" width="120" height="70">
 					</div>
 
 					<h3>Neurodegenerative Diseases</h3>
@@ -356,12 +437,12 @@
 
 				<div class="side-project">
 					<div>
-						<a href="https://github.com/Muhammad-Aqib-Anwar/Huggingface" target="_blank">
-							<img src="img/github.svg" alt="GitHub repository">
+						<a href="https://huggingface.co/spaces/MuhammadAqibAnwar/Food101" target="_blank"
+							rel="noopener" aria-label="Food-101 live demo on Hugging Face">
+							<img src="img/link.svg" alt="">
 						</a>
-						<a href="https://huggingface.co/spaces/MuhammadAqibAnwar/Food101" target="_blank">
-							<img src="img/link.svg" alt="Live demo">
-						</a>
+
+						<span class="project-status">Live demo</span>
 					</div>
 
 					<h3>Hugging Face</h3>
@@ -374,15 +455,6 @@
 				</div>
 
 				<div class="side-project">
-					<div>
-						<a href="https://github.com/Muhammad-Aqib-Anwar/" target="_blank">
-							<img src="img/github.svg" alt="GitHub repository">
-						</a>
-						<a href="https://github.com/Muhammad-Aqib-Anwar" target="_blank">
-							<img src="img/link.svg" alt="Live demo">
-						</a>
-					</div>
-
 					<h3>Retinal Vessel Classification</h3>
 
 					<p>
@@ -408,13 +480,15 @@
 			<article class="pub-card" data-year="2026">
 				<div class="pub-head">
 					<span class="pub-venue">IEEE</span>
-					<span class="pub-source">ICBEA 2026 &middot; Biomedical Engineering &amp; Applications &middot; Aug 10, 2026</span>
+					<span class="pub-source">ICBEA 2026 &middot; Biomedical Engineering &amp; Applications &middot; Mar 2026</span>
 				</div>
 				<h3 class="pub-title">A Machine Learning Framework for Early Detection of Multiple Sclerosis from Retinal Ganglion Cell Layer in OCT Scans</h3>
+				<p class="pub-authors"><strong>Muhammad Aqib Anwar</strong>, Ghassan Mohamedsalih, Mahmoud Refaee, Anant Pai, Albarra Mohamedsalih, Tanvir Alam</p>
 				<p class="pub-desc">
 					A machine learning framework that uses macula-centred ganglion cell layer (GCL) thickness from OCT scans as a biomarker for multiple sclerosis, enabling earlier, faster and non-invasive detection than the conventional diagnostic pathway.
 				</p>
 				<p class="pub-tags">OCT &middot; Ganglion Cell Layer &middot; Multiple Sclerosis &middot; Machine Learning</p>
+				<p class="pub-cite">Proc. 10th Int. Conf. on Biomedical Engineering and Applications (ICBEA), pp. 11&ndash;16 &middot; <span class="pub-doi">doi:10.23919/icbeacps00008.2026.00010</span></p>
 				<a href="https://ieeexplore.ieee.org/document/11644933" target="_blank" rel="noopener" class="pub-link">View publication &#8599;</a>
 			</article>
 
@@ -424,10 +498,12 @@
 					<span class="pub-source">Scientific Reports &middot; Jul 11, 2026</span>
 				</div>
 				<h3 class="pub-title">Machine learning model for the detection of autism spectrum disorder using electroretinogram signals</h3>
+				<p class="pub-authors"><strong>Muhammad Aqib Anwar</strong>, Mohammad Tariqul Islam, Tanvir Alam</p>
 				<p class="pub-desc">
 					An interpretable machine learning framework that detects autism spectrum disorder from non-invasive electroretinogram (ERG) signals, using UMAP-based feature representation to separate ASD from typically developing individuals.
 				</p>
 				<p class="pub-tags">ERG &middot; Autism Spectrum Disorder &middot; UMAP &middot; Machine Learning</p>
+				<p class="pub-cite"><span class="pub-doi">doi:10.1038/s41598-026-59539-y</span></p>
 				<a href="https://www.nature.com/articles/s41598-026-59539-y" target="_blank" rel="noopener" class="pub-link">View publication &#8599;</a>
 			</article>
 
@@ -437,10 +513,12 @@
 					<span class="pub-source">Medical Informatics &amp; Decision Making &middot; Jun 6, 2026</span>
 				</div>
 				<h3 class="pub-title">Machine learning based model for the detection of multiple sclerosis from OCT-derived macular and optic disc retinal biomarkers</h3>
+				<p class="pub-authors"><strong>Muhammad Aqib Anwar</strong>, Ghassan Mohamedsalih, Fatema Al Mannaei, Anant Pai, Tanvir Alam</p>
 				<p class="pub-desc">
 					An AI framework using macular GCL-IPL and RNFL thickness biomarkers from OCT scans to detect multiple sclerosis, combining feature engineering with machine learning on a patient-level retinal dataset.
 				</p>
 				<p class="pub-tags">OCT &middot; GCL-IPL &middot; RNFL &middot; Multiple Sclerosis &middot; Machine Learning</p>
+				<p class="pub-cite">BMC Med. Inform. Decis. Mak. 26, article 311 &middot; <span class="pub-doi">doi:10.1186/s12911-026-03598-8</span></p>
 				<a href="https://link.springer.com/article/10.1186/s12911-026-03598-8" target="_blank" rel="noopener" class="pub-link">View publication &#8599;</a>
 			</article>
 
@@ -450,23 +528,27 @@
 					<span class="pub-source">ICIC 2025 &middot; Innovative Computing &middot; Dec 10, 2025</span>
 				</div>
 				<h3 class="pub-title">DeepAntiVP: Deep Learning Framework for Predicting Antiviral Peptides Using Transformed Features</h3>
+				<p class="pub-authors">Muhammad Arif, <strong>Muhammad Aqib Anwar</strong>, Yaser Daanial Khan, Tanvir Alam</p>
 				<p class="pub-desc">
 					A deep learning framework for identifying antiviral peptides using transformed sequence features, improving prediction accuracy over existing machine learning classifiers.
 				</p>
 				<p class="pub-tags">Deep Learning &middot; Antiviral Peptides &middot; Sequence Features</p>
+				<p class="pub-cite">Proc. 6th Int. Conf. on Innovative Computing (ICIC), pp. 1&ndash;6 &middot; <span class="pub-doi">doi:10.1109/icic68258.2025.11413190</span></p>
 				<a href="https://ieeexplore.ieee.org/document/11413190" target="_blank" rel="noopener" class="pub-link">View publication &#8599;</a>
 			</article>
 
 			<article class="pub-card" data-year="2023">
 				<div class="pub-head">
 					<span class="pub-venue">Elsevier</span>
-					<span class="pub-source">Applied Soft Computing &middot; Jul 1, 2023</span>
+					<span class="pub-source">Applied Soft Computing &middot; Nov 2023</span>
 				</div>
 				<h3 class="pub-title">Image forgery detection by transforming local descriptors into deep-derived features</h3>
+				<p class="pub-authors"><strong>Muhammad Aqib Anwar</strong>, Syed Fahad Tahir, Labiba Gillani Fahad, Kashif Kifayat</p>
 				<p class="pub-desc">
 					Advanced image forgery detection by transforming local descriptors into deep-derived features via deep learning (VGG16), combined with SVM and hand-crafted features.
 				</p>
 				<p class="pub-tags">VGG16 &middot; SVM &middot; Local Descriptors &middot; Image Forensics</p>
+				<p class="pub-cite">Applied Soft Computing 147, 110730 &middot; <span class="pub-doi">doi:10.1016/j.asoc.2023.110730</span></p>
 				<a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494623007482" target="_blank" rel="noopener" class="pub-link">View publication &#8599;</a>
 			</article>
 		</div>
@@ -476,7 +558,7 @@
 		<div>
 			<span>Next steps?</span>
 
-			<h4>Let&apos;s work together</h4>
+			<h2 class="contact-heading">Let&apos;s work together</h2>
 
 			<p>
 				I&apos;m open to research collaborations, PhD and industry opportunities, and conversations
@@ -502,6 +584,7 @@
 
 		</aside>
 	</section>
+	</main>
 
 	<footer>
 		<p>Designed and developed by <span>Muhammad Aqib Anwar</span></p>

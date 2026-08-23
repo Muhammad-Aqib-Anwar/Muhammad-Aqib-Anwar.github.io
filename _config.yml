@@ -1,3 +1,10 @@
-theme: jekyll-theme-minimal
-title: Aqib's homepage
-description: Portfoliowebsite!
+title: Muhammad Aqib Anwar
+description: >-
+  PhD researcher in AI and computer vision at Hamad Bin Khalifa University,
+  Qatar. Retinal biomarkers for neurological disease, deep learning and
+  image forensics.
+url: https://muhammad-aqib-anwar.github.io
+
+# The site ships its own markup and stylesheet, so no Jekyll theme is loaded.
+exclude:
+  - README.md
